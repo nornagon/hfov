@@ -1,21 +1,20 @@
 {-# OPTIONS -fffi -fglasgow-exts #-}
--- |HFOV is a library for calculating field of view in a 2D raster grid, such
+-- | HFOV is a library for calculating field of view in a 2D raster grid, such
 -- as those found in roguelike games.
 --
 -- Thanks to Greg McIntyre for the original C library to which this Haskell
 -- library binds. It can be found at <http://libfov.sourceforge.net/wiki>.
 module FOV (
-	Settings,
-	Shape(..),
-	Direction(..),
-	newSettings,    -- IO Settings
-	setShape,       -- Settings -> Shape -> IO ()
-	setOpaqueApply, -- Settings -> Bool -> IO ()
-	circle,
-	beam
+		Settings,
+		Shape(..),
+		Direction(..),
+		newSettings,    -- IO Settings
+		setShape,       -- Settings -> Shape -> IO ()
+		setOpaqueApply, -- Settings -> Bool -> IO ()
+		circle,
+		beam
 	) where
 
-import Foreign.C
 import Foreign.Ptr
 import Foreign.ForeignPtr
 
@@ -34,24 +33,26 @@ newtype Settings = Settings (ForeignPtr SettingsRaw)
 
 -- | Shape of the field.
 data Shape
-	 -- | Limit the field of view to a circle radius R by precalculating the
-	 -- circle shape. This consumes memory at the rate of 4*(R+2) bytes per R
-   -- used in calls to fovCircle. Each radius is only calculated once.
-   = CirclePrecalculate
-   -- | Limit the field to a circle shape calculated on the fly.
-   | Circle
-   -- | Limit the field to an octagon with maximum radius R.
-   | Octagon
-   -- | Limit the field to an RxR square.
-   | Square
+	-- | Limit the field of view to a circle radius R by precalculating the
+	-- circle shape. This consumes memory at the rate of 4*(R+2) bytes per R
+	-- used in calls to fovCircle. Each radius is only calculated once.
+	= CirclePrecalculate
+	-- | Limit the field to a circle shape calculated on the fly.
+	| Circle
+	-- | Limit the field to an octagon with maximum radius R.
+	| Octagon
+	-- | Limit the field to an RxR square.
+	| Square
 
 data Direction = East | NorthEast | North | NorthWest | West | SouthWest | South | SouthEast
 
+rawshape :: (Num t) => Shape -> t
 rawshape CirclePrecalculate = #const FOV_SHAPE_CIRCLE_PRECALCULATE
 rawshape Square = #const FOV_SHAPE_SQUARE
 rawshape Circle = #const FOV_SHAPE_CIRCLE
 rawshape Octagon = #const FOV_SHAPE_OCTAGON
 
+rawdirection :: (Num t) => Direction -> t
 rawdirection East = #const FOV_EAST
 rawdirection NorthEast = #const FOV_NORTHEAST
 rawdirection North = #const FOV_NORTH
