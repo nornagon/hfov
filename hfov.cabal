@@ -1,0 +1,13 @@
+Name: hfov
+Version: 0
+Description: A field-of-view calculation library
+Author: Jeremy Apthorp <nornagon@nornagon.net>, blue_puyo
+Maintainer: nornagon@nornagon.net
+Build-Depends: base
+Exposed-Modules: FOV
+
+C-sources: fov.c
+Includes: fov.h
+Extra-source-files: FOV.hsc
+Extensions: CPP, ForeignFunctionInterface
+Include-dirs: .
