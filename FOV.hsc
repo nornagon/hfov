@@ -3,10 +3,10 @@ module FOV (
 	Settings,
 	Shape(..),
 	Direction(..),
-	newSettings,
-	setShape,
-	setOpaqueApply,
-	fovCircle
+	newSettings,    -- IO Settings
+	setShape,       -- Settings -> Shape -> IO ()
+	setOpaqueApply, -- Settings -> Bool -> IO ()
+	fovCircle       -- Settings -> (Int, Int) -> Int -> (Int -> Int -> IO ()) -> (Int -> Int -> IO Bool) -> IO ()
 	) where
 
 import Foreign.C
@@ -63,8 +63,8 @@ setOpaqueApply :: Settings -> Bool -> IO ()
 setOpaqueApply (Settings fps) a = withForeignPtr fps $ \s -> do
 	fov_settings_set_opaque_apply s (if a then (#const FOV_OPAQUE_APPLY) else (#const FOV_OPAQUE_NOAPPLY))
 
-fovCircle :: Settings -> Int -> Int -> Int -> (Int -> Int -> IO ()) -> (Int -> Int -> IO Bool) -> IO ()
-fovCircle (Settings fps) x y r apply opaque = withForeignPtr fps $ \s -> do
+fovCircle :: Settings -> (Int,Int) -> Int -> (Int -> Int -> IO ()) -> (Int -> Int -> IO Bool) -> IO ()
+fovCircle (Settings fps) (x,y) r apply opaque = withForeignPtr fps $ \s -> do
 	fov_settings_set_apply_lighting_function s =<< mkApplyFn (\_ x y _ _ _ -> apply x y)
 	fov_settings_set_opacity_test_function s =<< mkOpacityTestFn (\_ x y -> opaque x y)
 	fov_circle s nullPtr nullPtr x y r

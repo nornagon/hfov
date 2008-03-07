@@ -10,15 +10,9 @@ Maintainer:      nornagon@nornagon.net
 Build-Depends:   base >= 1.0, haskell98 >= 1.0
 Tested-with:     GHC==6.8.2
 
-Exposed-Modules:
-	FOV
-C-sources:
-	fov.c
-Includes:
-	fov.h
-Extra-source-files:
-	FOV.hsc
-Extensions:
-	CPP, ForeignFunctionInterface
-Include-dirs:
-	.
+Exposed-Modules: FOV
+C-sources: fov.c
+Includes: fov.h
+Extra-source-files: FOV.hsc
+Extensions: CPP, ForeignFunctionInterface
+Include-dirs: .
