@@ -9,7 +9,7 @@ License:         BSD3
 License-file:    LICENSE
 Author:          Jeremy Apthorp <nornagon@nornagon.net>, Greg McIntyre
 Maintainer:      nornagon@nornagon.net
-Build-Depends:   base >= 1.0, haskell98 >= 1.0
+Build-Depends:   base >= 1.0
 Build-Type:      Simple
 Tested-with:     GHC==6.8.2
 
