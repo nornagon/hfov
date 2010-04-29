@@ -1,5 +1,5 @@
 Name:            hfov
-Version:         1
+Version:         1.0.1
 Category:        Game
 Synopsis:        Field-of-view calculation for low-resolution 2D raster grids.
 Description:     A Haskell binding to a Field of View calculation library
