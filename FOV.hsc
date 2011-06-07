@@ -1,4 +1,5 @@
-{-# OPTIONS -fffi -fglasgow-exts #-}
+{-# LANGUAGE ForeignFunctionInterface #-}
+{-# OPTIONS -fglasgow-exts #-}
 -- | HFOV is a library for calculating field of view in a 2D raster grid, such
 -- as those found in roguelike games.
 --
@@ -95,8 +96,8 @@ circle :: Settings                -- ^The FOV settings structure to use
        -> (Int -> Int -> IO Bool) -- ^The function to determine the opacity of a certain cell
        -> IO ()
 circle (Settings fps) (x,y) r apply opaque = withForeignPtr fps $ \s -> do
-	fov_settings_set_apply_lighting_function s =<< mkApplyFn (\_ x y _ _ _ -> apply x y)
-	fov_settings_set_opacity_test_function s =<< mkOpacityTestFn (\_ x y -> opaque x y)
+	fov_settings_set_apply_lighting_function s =<< mkApplyFn (\_ x' y' _ _ _ -> apply x' y')
+	fov_settings_set_opacity_test_function s =<< mkOpacityTestFn (\_ x' y' -> opaque x' y')
 	fov_circle s nullPtr nullPtr x y r
 
 -- | Cast a beam.
@@ -109,6 +110,6 @@ beam :: Settings                -- ^The FOV settings structure to use
      -> (Int -> Int -> IO Bool) -- ^Opacity test function
      -> IO ()
 beam (Settings fps) (x,y) r dir angle apply opaque = withForeignPtr fps $ \s -> do
-	fov_settings_set_apply_lighting_function s =<< mkApplyFn (\_ x y _ _ _ -> apply x y)
-	fov_settings_set_opacity_test_function s =<< mkOpacityTestFn (\_ x y -> opaque x y)
+	fov_settings_set_apply_lighting_function s =<< mkApplyFn (\_ x' y' _ _ _ -> apply x' y')
+	fov_settings_set_opacity_test_function s =<< mkOpacityTestFn (\_ x' y' -> opaque x' y')
 	fov_beam s nullPtr nullPtr x y r (rawdirection dir) angle
