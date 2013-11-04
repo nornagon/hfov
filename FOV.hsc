@@ -1,5 +1,5 @@
 {-# LANGUAGE ForeignFunctionInterface #-}
-{-# OPTIONS -fglasgow-exts #-}
+{-# LANGUAGE EmptyDataDecls #-}
 -- | HFOV is a library for calculating field of view in a 2D raster grid, such
 -- as those found in roguelike games.
 --
@@ -19,7 +19,7 @@ module FOV (
 import Foreign.Ptr
 import Foreign.ForeignPtr
 
-#include "fov.h"
+#include "cfov.h"
 
 type OpacityTestFn a = Ptr a -> Int -> Int -> IO Bool
 foreign import ccall "wrapper" mkOpacityTestFn :: OpacityTestFn a -> IO (FunPtr (OpacityTestFn a))
