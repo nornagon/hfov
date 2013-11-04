@@ -14,9 +14,9 @@ Build-Type:      Simple
 Tested-with:     GHC==6.8.2
 
 Exposed-Modules: FOV
-C-sources: fov.c
-Includes: fov.h
-Extra-source-files: fov.h
+C-sources: cfov.c
+Includes: cfov.h
+Extra-source-files: cfov.h
 Extensions: CPP, ForeignFunctionInterface
 Include-dirs: .
 ghc-options:  -Wall
