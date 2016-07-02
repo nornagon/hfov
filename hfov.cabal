@@ -52,7 +52,6 @@ library
   exposed-modules:     FOV
   c-sources: cfov.c
   includes: cfov.h
-  extensions: CPP, ForeignFunctionInterface
   include-dirs: .
   ghc-options: -Wall
 

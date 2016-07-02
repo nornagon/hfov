@@ -1,5 +1,6 @@
 {-# LANGUAGE ForeignFunctionInterface #-}
 {-# LANGUAGE EmptyDataDecls #-}
+{-# LANGUAGE CPP #-}
 -- | HFOV is a library for calculating field of view in a 2D raster grid, such
 -- as those found in roguelike games.
 --
