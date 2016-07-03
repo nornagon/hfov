@@ -10,7 +10,7 @@ name:                hfov
 -- PVP summary:      +-+------- breaking API changes
 --                   | | +----- non-breaking API additions
 --                   | | | +--- code changes with no API change
-version:             1.0.2
+version:             1.0.3
 
 -- A short (one-line) description of the package.
 synopsis:        Field-of-view calculation for low-resolution 2D raster grids.
@@ -52,14 +52,12 @@ library
   exposed-modules:     FOV
   c-sources: cfov.c
   includes: cfov.h
-  extensions: CPP, ForeignFunctionInterface
   include-dirs: .
   ghc-options: -Wall
 
 
   -- Other library packages from which modules are imported.
-  build-depends:       base ==4.6.*
+  build-depends:       base
 
   -- Extra tools (e.g. alex, hsc2hs, ...) needed to build the source.
   build-tools:         hsc2hs
-
